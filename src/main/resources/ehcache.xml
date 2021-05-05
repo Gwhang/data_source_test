@@ -1,0 +1,46 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	updateCheck="false">
+	
+	<diskStore path="java.io.tmpdir" />
+	
+    <!--EHCache分布式缓存集群环境配置-->  
+    <!--rmi手动配置-->
+    <!-- 使用RMI的方式在集群的server进行缓存复制 -->
+    <cacheManagerPeerProviderFactory
+	class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory"
+	properties="peerDiscovery=manual,rmiUrls=//localhost:40000/serviceCache" />
+	
+	<cacheManagerPeerListenerFactory
+		class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory"
+		properties="hostName=localhost,port=40001, socketTimeoutMillis=120000" /> 
+    
+	<defaultCache maxElementsInMemory="10000" eternal="false"
+		timeToIdleSeconds="120" timeToLiveSeconds="120" overflowToDisk="true"
+		maxElementsOnDisk="10000000" diskPersistent="false"
+		diskExpiryThreadIntervalSeconds="120" memoryStoreEvictionPolicy="LRU" >
+		
+		 <cacheEventListenerFactory  
+                class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/> 
+	</defaultCache>
+
+	<cache name="org.hibernate.cache.spi.UpdateTimestampsCache"
+		maxElementsInMemory="5000" eternal="true" overflowToDisk="true">
+		<cacheEventListenerFactory  
+                class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/>
+	</cache>
+	
+	<cache name="org.hibernate.cache.internal.StandardQueryCache"
+		maxElementsInMemory="10000" eternal="false" timeToLiveSeconds="120"
+		overflowToDisk="true" >
+		<cacheEventListenerFactory  
+                class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/>
+	</cache>
+
+	<cache name="serviceCache" eternal="false" maxElementsInMemory="100"
+		overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
+		timeToLiveSeconds="300" memoryStoreEvictionPolicy="LRU">
+		<cacheEventListenerFactory  
+                class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/>
+	</cache>
+
+</ehcache>
