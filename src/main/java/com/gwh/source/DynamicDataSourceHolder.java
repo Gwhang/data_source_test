@@ -4,9 +4,7 @@
 package com.gwh.source;
 
 /**
- * @author ZhaoXinGuo
- * 
- * @email sxdtzhaoxinguo@163.com
+ * @author guanwanhang
  */
 public class DynamicDataSourceHolder {
 

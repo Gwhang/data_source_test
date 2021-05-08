@@ -9,9 +9,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @author ZhaoXinGuo
- *
- * @email sxdtzhaoxinguo@163.com
+ * @author guanwanhang
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)

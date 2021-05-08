@@ -12,9 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.Method;
 
 /**
- * @author ZhaoXinGuo
- * 
- * @email sxdtzhaoxinguo@163.com
+ * @author guanwanhang
  */
 public class DataSourceAspect {
 	
